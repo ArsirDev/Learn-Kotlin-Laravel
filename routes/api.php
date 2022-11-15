@@ -41,6 +41,8 @@ Route::get('learn-kotlin-get-input-materi-by-id', [App\Http\Controllers\MateriCo
 
 Route::post('learn-kotlin-set-input-kuis', [App\Http\Controllers\KuisController::class, 'setInputKuis'])->middleware('auth:api'); 
 
+Route::post('learn-kotlin-update-kuis', [App\Http\Controllers\KuisController::class, 'setUpdate'])->middleware('auth:api'); 
+
 Route::get('learn-kotlin-get-detail-kuis', [App\Http\Controllers\KuisController::class, 'getDetailKuis']); 
 
 Route::get('learn-kotlin-delete-kuis', [App\Http\Controllers\KuisController::class, 'deleteKuis']); 

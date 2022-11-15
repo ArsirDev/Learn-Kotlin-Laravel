@@ -44,6 +44,36 @@ class KuisController extends BaseController
         return $this->sendResponse($success, "Successfully saved");
     }
 
+    public function setUpdate(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'title' => 'required',
+            'question' => 'required',
+            'answer_a' => 'required',
+            'answer_b' => 'required',
+            'answer_c' => 'required',
+            'answer_d' => 'required',
+            'correct_answer' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return $this->sendError('data tidak boleh kosong.', $validator->errors());
+        }
+        $path = $request->file('image')->store('images');
+        $success = Kuis::find($request->id)->update([
+            'title' => $request->title,
+            'question' => $request->question,
+            'answer_a' => $request->answer_a,
+            'answer_b' => $request->answer_b,
+            'answer_c' => $request->answer_c,
+            'answer_d' => $request->answer_d,
+            'correct_answer' => $request->correct_answer,
+            'image' => asset($path),
+        ]);
+
+        return $this->sendResponse($success, "Successfully update");
+    }
+
     public function deleteKuis(Request $request)
     {
         $success = Kuis::find($request->id)->delete();

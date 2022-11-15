@@ -48,12 +48,8 @@ class MateriController extends BaseController
         if ($validator->fails()) {
             return $this->sendError('data tidak boleh kosong.', $validator->errors());
         }
-
-        $user = Auth::user();
         $path = $request->file('image')->store('images');
-        $udapte = Materi::updated([
-            'owner_id' => $user->id,
-            'name' => $user->name,
+        $udapte = Materi::find($request->id)->update([
             'title' => $request->title,
             'description' => $request->description,
             'another_description' => $request->another_description,
